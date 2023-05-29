@@ -58,22 +58,39 @@ public class HomeController extends BaseController {
     @PostMapping("register")
     public ModelAndView postregister(ModelAndView mv, AdminDTO admin){
 
-        System.out.println("ㅎㅇㅎㅇ");
-        String view = "redirect:index";
+        String view = "redirect:/login";
         if(admin.getConfirmpasswd().equals(admin.getPasswd())){
             AdminEntity adminEntity = adminService.insert(admin);
-            view = adminEntity == null ? "redirect:index" : "redirect:index";
+            if(adminEntity != null) {
+                view = "redirect:/login";
+            }else {
+                view = "/admin/register";
+                mv.addObject("alert","등록에 실패하였습니다.");
+            }
         }
-
         mv.setViewName(view);
         return mv;
     }
 
     @GetMapping("login")
-    public ModelAndView resume(ModelAndView mv){
+    public ModelAndView login(ModelAndView mv){
 
         mv.setViewName("/admin/login");
 
+        return mv;
+    }
+
+    @PostMapping("login")
+    public ModelAndView postlogin(ModelAndView mv,AdminDTO admin){
+
+        AdminEntity adminEntity = adminService.find(admin);
+        mv.setViewName("/admin/login");
+        mv.addObject("alert","로그인에 실패하였습니다");
+        if(adminEntity != null){
+            mv.clear();
+            super.setAdminsession(adminEntity);
+            mv.setViewName("redirect:/index");
+        }
         return mv;
     }
 }

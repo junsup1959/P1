@@ -4,6 +4,7 @@ package springboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import springboot.model.admin.AdminDTO;
+import springboot.model.admin.AdminEntity;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,8 +18,11 @@ public abstract class BaseController {
         return httpSession;
     }
 
-    public AdminDTO getAdminsession(){
+    public AdminEntity getAdminsession(){
+        return (AdminEntity)httpSession.getAttribute("adminLogin");
+    }
 
-        return (AdminDTO)httpSession.getAttribute("adminLogin");
+    public void setAdminsession(AdminEntity adminEntity){
+        httpSession.setAttribute("adminLogin",adminEntity);
     }
 }

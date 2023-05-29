@@ -26,4 +26,7 @@ public class AdminService{
             return null;
         }
     }
+    public AdminEntity find(AdminDTO admin){
+        return repository.findByEmailAndPasswd(admin.getEmail(),admin.getPasswd());
+    }
 }

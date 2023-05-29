@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -82,10 +82,19 @@
                 </footer>
             </div>
         </div>
-        <script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const message = /*[[${alert}]]*/;
             function submit() {
                 document.getElementById('regadmin').submit();
             }
+            document.addEventListener("DOMContentLoaded", function() {
+                // 실행할 코드
+                if(message !== undefined && message !==null){
+                    alert(message);
+                }
+            });
+            /*]]>*/
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="/common/js/scripts.js"></script>
