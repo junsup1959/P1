@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import springboot.model.admin.AdminDTO;
+import springboot.model.admin.AdminEntity;
 import springboot.service.AdminService;
 
 
@@ -58,12 +59,13 @@ public class HomeController extends BaseController {
     public ModelAndView postregister(ModelAndView mv, AdminDTO admin){
 
         System.out.println("ㅎㅇㅎㅇ");
-
+        String view = "redirect:index";
         if(admin.getConfirmpasswd().equals(admin.getPasswd())){
-            adminService.insert(admin);
+            AdminEntity adminEntity = adminService.insert(admin);
+            view = adminEntity == null ? "redirect:index" : "redirect:index";
         }
 
-        mv.setViewName("/admin/register");
+        mv.setViewName(view);
         return mv;
     }
 
