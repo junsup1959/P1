@@ -14,15 +14,15 @@ public abstract class BaseController {
     @Autowired
     protected HttpSession httpSession;
 
-    public HttpSession getSession(){
+    public HttpSession getession(){
         return httpSession;
     }
 
-    public AdminEntity getAdminsession(){
-        return (AdminEntity)httpSession.getAttribute("adminLogin");
+    public AdminEntity getusession(){
+        return (AdminEntity)httpSession.getAttribute("login");
     }
 
-    public void setAdminsession(AdminEntity adminEntity){
-        httpSession.setAttribute("adminLogin",adminEntity);
+    public void setusession(AdminEntity adminEntity){
+        httpSession.setAttribute("login",adminEntity);
     }
 }

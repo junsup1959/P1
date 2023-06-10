@@ -39,8 +39,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.projectlombok:lombok")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("mysql:mysql-connector-java:8.0.20")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.7'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.15.0'

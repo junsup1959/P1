@@ -11,14 +11,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "admin")
+@Table(name = "adminMember")
 public class AdminEntity extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seq")
     private Long seq;
 
-    @Column(name = "email",unique = true,length = 30, nullable = false)
+    @Column(name = "email", unique = true ,length = 30, nullable = false)
     private String email;
 
     @Column(name = "passwd" , length = 255, nullable = false)

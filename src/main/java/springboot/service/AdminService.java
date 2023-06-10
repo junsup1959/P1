@@ -20,6 +20,7 @@ public class AdminService{
     @Transactional
     public AdminEntity insert(AdminDTO admin) {
         try {
+
             return repository.save(admin.toentitiy());
         }catch (Exception e){
             log.error(e);
