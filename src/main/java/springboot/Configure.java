@@ -3,7 +3,6 @@ package springboot;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.connector.Connector;
-import org.apache.coyote.ajp.AbstractAjpProtocol;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
@@ -32,7 +31,7 @@ public class Configure implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations(uploadPath);
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:///"+uploadPath);
     }
 
     @Bean
@@ -52,4 +51,9 @@ public class Configure implements WebMvcConfigurer {
         ajp.setProperty("allowedRequestAttributesPattern",".*");
         return ajp;
     }
+
+   /* @Override
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry){
+        registry.addHandler(new BaseService.Websocket(),"/monitor").setAllowedOrigins("*");
+    }*/
 }

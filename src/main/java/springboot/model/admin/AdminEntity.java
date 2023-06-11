@@ -38,9 +38,10 @@ public class AdminEntity extends BaseTimeEntity {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-/*
+
     public void update(String email,String passwd){
         this.email = email;
         this.passwd = passwd;
-    }*/
+    }
+
 }

@@ -31,13 +31,21 @@ public class BoardEntity extends BaseTimeEntity {
     @Column(name = "fileNames")
     private List<String> fileNames;
 
-
+    @Column(name = "regUser")
+    private String regUser;
     @Builder
-    public BoardEntity(Long seq,String subject, String body, List<String> fileNames){
+    public BoardEntity(Long seq,String subject, String body, List<String> fileNames,String regUser){
         this.seq = seq;
         this.subject =subject;
         this.body = body;
         this.fileNames = fileNames;
+        this.regUser = regUser;
     }
 
+
+    public void update(String subject,String body,List<String> fileNames){
+        this.body = body;
+        this.subject = subject;
+        this.fileNames = fileNames;
+    }
 }

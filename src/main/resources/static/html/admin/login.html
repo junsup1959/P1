@@ -31,12 +31,12 @@
                                                 <label for="inputPassword">Password</label>
                                             </div>
                                             <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
+                                                <input class="form-check-input" id="inputRememberEmail" name="remeber" type="checkbox" value="Y" />
+                                                <label class="form-check-label" for="inputRememberEmail">Remember Email</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="password">Forgot Password?</a>
-                                                <a class="btn btn-primary" onclick="submit()">Login</a>
+                                                <a class="btn btn-primary" onclick="loginProcess()">Login</a>
                                             </div>
                                         </form>
                                     </div>
@@ -67,16 +67,75 @@
         <script th:inline="javascript">
             /*<![CDATA[*/
             const message = /*[[${alert}]]*/;
-            function submit() {
-                document.getElementById('login').submit();
-            }
             document.addEventListener("DOMContentLoaded", function() {
                 // 실행할 코드
                 if(message !== undefined && message !==null){
                     alert(message);
                 }
             });
+
+            window.addEventListener('load', function() {
+                var mail = getCookie("Cookie_mail");
+
+                if (mail) {
+                    document.getElementById("inputEmail").value = mail;
+                    document.getElementById("inputRememberEmail").checked = true;
+                }
+            });
+
+            function loginProcess() {
+                var id = document.getElementById("inputEmail").value;
+                var pwd = document.getElementById("inputPassword").value;
+                var idChk = document.getElementById("inputRememberEmail").checked;
+
+                if (id === "") {
+                    alert("Enter mail");
+                    document.getElementById("mail").focus();
+                    return false;
+                } else if (pwd === "") {
+                    alert("Enter password");
+                    document.getElementById("password").focus();
+                    return false;
+                } else if (idChk) {
+                    setCookie("Cookie_mail", id, 7);
+                } else {
+                    deleteCookie("Cookie_mail");
+                }
+
+                document.getElementById("login").submit();
+            }
+
+            function setCookie(cookieName, value, exdays) {
+                var exdate = new Date();
+                exdate.setDate(exdate.getDate() + exdays);
+                var cookieValue = encodeURIComponent(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+                document.cookie = cookieName + "=" + cookieValue;
+            }
+
+            function getCookie(cookieName) {
+                cookieName = cookieName + '=';
+                var cookieData = document.cookie;
+                var start = cookieData.indexOf(cookieName);
+                var cookieValue = '';
+
+                if (start !== -1) {
+                    start += cookieName.length;
+                    var end = cookieData.indexOf(';', start);
+                    if (end === -1) end = cookieData.length;
+                    cookieValue = decodeURIComponent(cookieData.substring(start, end));
+                }
+
+                return cookieValue;
+            }
+
+            function deleteCookie(cookieName) {
+                var expireDate = new Date();
+                expireDate.setDate(expireDate.getDate() - 1);
+                document.cookie = cookieName + "=; expires=" + expireDate.toUTCString();
+            }
             /*]]>*/
+
+
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="/common/js/scripts.js"></script>

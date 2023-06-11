@@ -1,27 +1,19 @@
 package springboot.controller;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.StringUtils;
 import springboot.model.admin.AdminDTO;
 import springboot.model.admin.AdminEntity;
-import springboot.model.board.BoardDTO;
-import springboot.model.board.BoardEntity;
 import springboot.service.AdminService;
 import springboot.service.BoardService;
 
-import javax.websocket.server.ServerEndpoint;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
-import java.util.List;
 
 
 @Log4j2
@@ -31,8 +23,8 @@ import java.util.List;
 public class HomeController extends BaseController {
 
 
+
     private final AdminService adminService;
-    private final BoardService boardService;
     @GetMapping("")
     public ModelAndView main(ModelAndView mv){
 
@@ -75,11 +67,10 @@ public class HomeController extends BaseController {
         String view = "";
         Field[] fields = admin.getClass().getDeclaredFields();
 
-        for(Field filed : fields){
-            filed.setAccessible(true);
-            Object value = filed.get(admin);
-            if(value.getClass() == String.class){
-                if(StringUtils.isEmpty((String)value)){
+        for(Field field : fields){
+            field.setAccessible(true);
+            if(field.getType() == String.class){
+                if(StringUtils.isEmpty((String)field.get(admin)) ||((String) field.get(admin)).trim().equals("")){
                     view = "/admin/register";
                     mv.addObject("alert","값이 비었습니다.");
                     mv.setViewName(view);
@@ -108,13 +99,14 @@ public class HomeController extends BaseController {
     @GetMapping("login")
     public ModelAndView login(ModelAndView mv){
 
-        mv.setViewName("/admin/login");
+        String vewName = super.getusession() == null ? "/admin/login" : "redirect:/index";
+        mv.setViewName(vewName);
 
         return mv;
     }
 
     @PostMapping("login")
-    public ModelAndView postlogin(ModelAndView mv,AdminDTO admin){
+    public ModelAndView postlogin(ModelAndView mv, AdminDTO admin, HttpServletRequest request){
 
         AdminEntity adminEntity = adminService.find(admin);
         mv.setViewName("/admin/login");
@@ -126,33 +118,30 @@ public class HomeController extends BaseController {
         }
         return mv;
     }
+    @GetMapping("password")
+    public  ModelAndView password(ModelAndView mv){
 
-
-    @GetMapping("board")
-    public  ModelAndView board(ModelAndView mv,@PageableDefault(size = 10, page = 0) @SortDefault(sort = {"seq"}, direction = Sort.Direction.DESC) Pageable pageable){
-
-        Page<BoardDTO> page = boardService.findPage(pageable);
-
-        List<BoardDTO> list = page.getContent();
-
-        int totalPages = page.getTotalPages();
-
-        int currentNum = page.getNumber();
-
-
-        mv.addObject("currentPage",currentNum);
-        mv.addObject("totalPage",totalPages);
-        mv.addObject("list",list);
-
-        for (BoardDTO dto : list){
-            System.out.println(dto.getSeq());
-        }
-
-
-        mv.setViewName("/admin/board");
-
-
+        mv.setViewName("/admin/password");
 
         return mv;
-    };
+    }
+
+    @PostMapping("password")
+    public  ModelAndView password(ModelAndView mv,@RequestParam(required = true) String email){
+
+       /* AdminEntity entity =adminService.findByEmail(email);
+        if(entity ==null){
+            mv.addObject("alert","존재하지 않는 이메일입니다.");
+            mv.addObject("script","history.back();");
+        }else {
+            mv.addObject("alert","임의이 비밀번호로 변경되었습니다. 이메일을 확인하세요");
+            mv.addObject("script","window.location.href='/login';");
+        }*/
+        mv.addObject("alert","개발중!!");
+        mv.addObject("script","window.location.href='/login';");
+        mv.setViewName("/alert/alert");
+
+        return mv;
+    }
+
 }

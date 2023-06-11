@@ -9,6 +9,8 @@ import springboot.model.admin.AdminDTO;
 import springboot.model.admin.AdminEntity;
 import springboot.model.admin.AdminRepository;
 
+import java.util.UUID;
+
 
 @Log4j2
 @RequiredArgsConstructor
@@ -30,4 +32,19 @@ public class AdminService{
     public AdminEntity find(AdminDTO admin){
         return repository.findByEmailAndPasswd(admin.getEmail(),admin.getPasswd());
     }
+
+  /*  public AdminEntity findByEmail(String email){
+        AdminEntity entity= repository.findByEmail(email);
+        if(entity == null)
+            return null;
+        String uid = UUID.randomUUID().toString().substring(0,7);
+        entity.update(entity.getEmail(),uid);
+        String subject = "비밀번호 초기화 입니다";
+        String body = "변경된 임의의 비밀번호 : " + uid;
+        MailUtil mail = new MailUtil(entity.getEmail(),subject,body);
+        mail.Sendmail();
+
+
+        return entity;
+    }*/
 }

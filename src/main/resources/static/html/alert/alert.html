@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>alertPage</title>
+
+</head>
+<body>
+
+<script>
+    /*<![CDATA[*/
+    const message = "[[${alert}]]";
+    function action() {
+        [[${script}]]
+    }
+    function submit() {
+        document.getElementById('login').submit();
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        // 실행할 코드
+        if(message !== undefined && message !==null){
+            alert(message);
+        }
+        action();
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

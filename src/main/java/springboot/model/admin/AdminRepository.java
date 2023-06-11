@@ -4,4 +4,5 @@ package springboot.model.admin;
 
 public interface AdminRepository extends JpaRepository<AdminEntity,Long> {
     AdminEntity findByEmailAndPasswd(String email, String passwd);
+    AdminEntity findByEmail(String email);
 }
