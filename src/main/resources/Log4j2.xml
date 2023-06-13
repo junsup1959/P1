@@ -29,12 +29,12 @@
     <Loggers>
         <!-- Application Loggers -->
         <!-- Root 보다 우선 순위가 높습니다. -->
-        <logger name="springboot.controller.*" level="DEBUG" additivity="false">
+        <logger name="springboot.controller.*" level="INFO" additivity="false">
             <AppenderRef ref="console" />
             <AppenderRef ref="RollingFile" />
         </logger>
 
-        <logger name="springboot.service.*" level="DEBUG" additivity="false">
+        <logger name="springboot.service.*" level="INFO" additivity="false">
             <AppenderRef ref="console" />
             <AppenderRef ref="RollingFile" />
         </logger>
@@ -44,5 +44,36 @@
             <AppenderRef ref="console" />
             <AppenderRef ref="RollingFile" />
         </Root>
+
+        <!-- QUERY LOG -->
+        <logger name="jdbc.sqlonly" additivity="false" level="INFO">
+            <appender-ref ref="console" />
+        </logger>
+
+        <!-- RESULTSET TABLE -->
+        <logger name="jdbc.resultsettable" additivity="false" level="INFO">
+            <appender-ref ref="console" />
+        </logger>
+
+        <!-- query + time -->
+        <logger name="jdbc.sqltiming" level="INFO">
+            <appender-ref ref="console" />
+        </logger>
+
+        <!-- 전체 로그 ( 양 상당히 많아짐 ) -->
+        <logger name="jdbc.audit" level="INFO" additivity="false">
+            <appender-ref ref="console" />
+          </logger>
+
+    <!-- resultsettable + resultset (parameter) -->
+        <logger name="jdbc.resultset" level="INFO" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
+        <!-- connection log -->
+        <logger name="jdbc.connection" level="INFO" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
     </Loggers>
 </Configuration>

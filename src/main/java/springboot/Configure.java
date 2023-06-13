@@ -48,7 +48,7 @@ public class Configure implements WebMvcConfigurer {
         ajp.setAllowTrace(false);
         ajp.setScheme("http");
         ajp.setProperty("address","0.0.0.0");
-        ajp.setProperty("allowedRequestAttributesPattern",".*");
+        ajp.setProperty("allowedRequestAttributesPattern","/*");
         return ajp;
     }
 
