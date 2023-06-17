@@ -144,4 +144,27 @@ public class HomeController extends BaseController {
         return mv;
     }
 
+
+    @GetMapping("tables")
+    public ModelAndView tables(ModelAndView mv){
+
+        mv.setViewName("/admin/tables");
+
+        return mv;
+    }
+
+    @GetMapping("layout-static")
+    public ModelAndView layout(ModelAndView mv){
+
+        mv.setViewName("/admin/layout-static");
+
+        return mv;
+    }
+    @GetMapping("layout-sidenav-light")
+    public ModelAndView layout2(ModelAndView mv){
+
+        mv.setViewName("/admin/layout-sidenav-light");
+
+        return mv;
+    }
 }
