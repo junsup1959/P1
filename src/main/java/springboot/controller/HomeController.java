@@ -108,7 +108,7 @@ public class HomeController extends BaseController {
     @PostMapping("login")
     public ModelAndView postlogin(ModelAndView mv, AdminDTO admin, HttpServletRequest request){
 
-        AdminEntity adminEntity = adminService.find(admin);
+        /*AdminEntity adminEntity = adminService.find(admin);
         mv.setViewName("/admin/login");
         mv.addObject("alert","로그인에 실패하였습니다");
         if(adminEntity != null){
@@ -116,7 +116,19 @@ public class HomeController extends BaseController {
             super.setusession(adminEntity);
             mv.setViewName("redirect:/index");
         }
+        return mv;*/
+
+        AdminDTO adminDTO = adminService.findT(admin);
+        mv.setViewName("/admin/login");
+        mv.addObject("alert","로그인에 실패하였습니다");
+        if(adminDTO != null){
+            mv.clear();
+            super.setusession(adminDTO.toentitiy());
+            mv.setViewName("redirect:/index");
+        }
         return mv;
+
+
     }
     @GetMapping("password")
     public  ModelAndView password(ModelAndView mv){
@@ -145,26 +157,4 @@ public class HomeController extends BaseController {
     }
 
 
-    @GetMapping("tables")
-    public ModelAndView tables(ModelAndView mv){
-
-        mv.setViewName("/admin/tables");
-
-        return mv;
-    }
-
-    @GetMapping("layout-static")
-    public ModelAndView layout(ModelAndView mv){
-
-        mv.setViewName("/admin/layout-static");
-
-        return mv;
-    }
-    @GetMapping("layout-sidenav-light")
-    public ModelAndView layout2(ModelAndView mv){
-
-        mv.setViewName("/admin/layout-sidenav-light");
-
-        return mv;
-    }
 }

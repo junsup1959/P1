@@ -20,6 +20,12 @@
                                 <div class="text-center mt-4">
                                     <h1 class="display-1">500</h1>
                                     <p class="lead">Internal Server Error</p>
+                                    <p th:text="${'path: ' + path}"></p>
+                                    <p th:text="${'status: ' + status}"></p>
+                                    <p th:text="${'errorserlvetName: ' + errorserlvetName}"></p>
+                                    <p th:text="${'excetionType: ' + excetionType}"></p>
+                                    <p th:text="${'exception: ' + exception}"></p>
+                                    <p th:text="${'message: ' + message}"></p>
                                     <a href="/index">
                                         <i class="fas fa-arrow-left me-1"></i>
                                         Return to Dashboard

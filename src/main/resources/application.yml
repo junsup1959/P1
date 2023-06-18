@@ -53,3 +53,5 @@ logging:
 
 
 filePath : D:\upload\
+mybatis:
+  type-aliases-package: springboot.model.admin

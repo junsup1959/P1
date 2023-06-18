@@ -3,13 +3,12 @@ package springboot.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import springboot.mapperInterface.AdminMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springboot.model.admin.AdminDTO;
 import springboot.model.admin.AdminEntity;
 import springboot.model.admin.AdminRepository;
-
-import java.util.UUID;
 
 
 @Log4j2
@@ -18,6 +17,8 @@ import java.util.UUID;
 public class AdminService{
 
     private final AdminRepository repository;
+
+    private final AdminMapper adminMapper;
 
     @Transactional
     public AdminEntity insert(AdminDTO admin) {
@@ -47,4 +48,8 @@ public class AdminService{
 
         return entity;
     }*/
+
+    public AdminDTO findT(AdminDTO admin){
+        return adminMapper.findUser(admin);
+    }
 }
